@@ -22,16 +22,12 @@ public class ProdutoRepository {
     //findById
 
     public Produto findById(int id) {
-        Produto produtoEncontrado = new Produto();
-        this.ListaProdutos.forEach(produto -> {
+        for (Produto produto : this.ListaProdutos) {
             if (produto.getId() == id) {
-                produtoEncontrado.setId(produto.getId());
-                produtoEncontrado.setNome(produto.getNome());
-                produtoEncontrado.setPreco(produto.getPreco());
-                produtoEncontrado.setStatus(produto.isStatus());
+                return produto;
             }
-        });
-        return produtoEncontrado;
+        }
+        return null;
     }
 
     //create
@@ -46,7 +42,7 @@ public class ProdutoRepository {
 
     public Produto alter(Produto produto) {
         Produto produtoEncontrado = this.findById(produto.getId());
-        if (produtoEncontrado.getId() == 0) {
+        if (produtoEncontrado == null) {
             return null;
         }
         this.ListaProdutos.remove(produtoEncontrado);
@@ -59,7 +55,7 @@ public class ProdutoRepository {
 
     public Produto delete(int id) {
         Produto produtoEncontrado = this.findById(id);
-        if (produtoEncontrado.getId() == 0) {
+        if (produtoEncontrado == null) {
             return null;
         }
 
